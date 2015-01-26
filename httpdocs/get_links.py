@@ -10,7 +10,12 @@ def get_links(filename):
 
   for tag in soup.findAll('a', href=True):
       href = tag['href']
-      links.add(href)
+      if ("cite_ref" in href):
+        continue
+      elif ("cite_note" in href):
+        continue
+      else:
+        links.add(href)
   return links
 
 
