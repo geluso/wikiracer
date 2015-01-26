@@ -9,10 +9,13 @@ def get_links(filename):
   links = Set([])
 
   for tag in soup.findAll('a', href=True):
-      href = tag['href']
-      if ("cite_ref" in href):
+    href = tag['href']
+    if href.startswith("/wiki/"):
+      if "File:" in href:
         continue
-      elif ("cite_note" in href):
+      elif "Special:" in href:
+        continue
+      elif "Category:" in href:
         continue
       else:
         links.add(href)
