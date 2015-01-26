@@ -1,0 +1,49 @@
+body {
+	background-color: goldenrod;
+	font-family: monospace;
+}
+
+a {
+	color: #CC0000;
+}
+
+a:hover {
+	color: yellow;
+}
+
+a:visited {
+	color: #AA0000;
+}
+
+.notecard {
+	background-color: white;
+	border: solid black 1px;
+  padding: 1em;
+  margin: 1em;
+  display: inline-block;
+}
+
+.center {
+  text-align: center;
+}
+
+#canvas {
+  border: solid black 1px;
+}
+
+.user-color {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  border: solid black 1px;
+  margin-right: .5em;
+}
+
+.chainlink {
+  margin: 2px;
+  text-align: left;
+}
+
+.hover {
+  cursor: pointer;
+}
