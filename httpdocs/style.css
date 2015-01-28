@@ -19,8 +19,6 @@ a:visited {
 	background-color: white;
 	border: solid black 1px;
   padding: 1em;
-  margin: 1em;
-  display: inline-block;
 }
 
 .center {

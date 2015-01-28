@@ -3,75 +3,204 @@ var COOLDOWN_LENGTH = 100;
 
 var app = angular.module('app',[]);
 
-app.controller('ChainGangController', ['$scope', '$http', '$interval', '$timeout',
-    function($scope, $http, $interval, $timeout) {
-  $scope.input = '';
-  $scope.chain = ['ace', 'bar', 'car'];
+app.controller('WikiRacerController', ['$scope', '$http',
+    function($scope, $http) {
+  $scope.currentArticle = "University District, Seattle";
+  $scope.chosen = ['/wiki/United_States', '/wiki/Washington', '/wiki/Seattle'];
+  $scope.links = [
+    "/wiki/Interstate_5",
+    "/wiki/Ice_age#Glaciation_in_North_America",
+    "/wiki/University_Link",
+    "/wiki/Greenwood,_Seattle",
+    "/wiki/Main_Page",
+    "/wiki/Alki_Point,_Seattle",
+    "/wiki/Roosevelt,_Seattle",
+    "/wiki/Template:Seattle_neighborhoods",
+    "/wiki/Columbia_City,_Seattle",
+    "/wiki/Blue_Ridge,_Seattle",
+    "/wiki/Riverview,_Seattle",
+    "/wiki/Phinney_Ridge,_Seattle",
+    "/wiki/Light_rail",
+    "/wiki/Seaview,_Seattle",
+    "/wiki/Labor_rights",
+    "/wiki/Wayback_Machine",
+    "/wiki/Ship_Canal_Bridge",
+    "/wiki/Broadview,_Seattle",
+    "/wiki/Haller_Lake,_Seattle",
+    "/wiki/Bitter_Lake,_Seattle",
+    "/wiki/Northlake,_Seattle",
+    "/wiki/Highland_Park,_Seattle",
+    "/wiki/Seattle_neighborhoods#Public_library_branches.2C_public_schools.2C_and_public_parks",
+    "/wiki/Belltown,_Seattle",
+    "/wiki/Help:IPA",
+    "/wiki/Westlake,_Seattle",
+    "/wiki/Genesee,_Seattle",
+    "/wiki/Denny-Blaine,_Seattle",
+    "/wiki/Grand_Illusion_Cinema",
+    "/wiki/Capitol_Hill,_Seattle,_Washington",
+    "/wiki/Snoqualmie,_Washington",
+    "/wiki/Lower_Queen_Anne,_Seattle",
+    "/wiki/Bus_bulb",
+    "/wiki/Fremont,_Seattle",
+    "/wiki/Sic",
+    "/wiki/Lake_Washington_Ship_Canal",
+    "/wiki/Denny_Regrade,_Seattle",
+    "/wiki/Wikipedia:Community_portal",
+    "/wiki/Pinehurst,_Seattle",
+    "/wiki/Matthews_Beach,_Seattle",
+    "/wiki/Portage_Bay",
+    "/wiki/Sand_Point,_Seattle",
+    "/wiki/Washington_Park,_Seattle",
+    "/wiki/Gatewood,_Seattle",
+    "/wiki/Wallingford,_Seattle",
+    "/wiki/Talk:University_District,_Seattle",
+    "/wiki/Victory_Heights,_Seattle",
+    "/wiki/Native_Americans_in_the_United_States",
+    "/wiki/Westwood,_Seattle",
+    "/wiki/Wi-Fi",
+    "/wiki/Belltown,_Seattle,_Washington",
+    "/wiki/NewHolly,_Seattle",
+    "/wiki/Rainier_Valley,_Seattle,_Washington",
+    "/wiki/Crown_Hill,_Seattle",
+    "/wiki/Counterculture_of_the_1960s",
+    "/wiki/Central_District,_Seattle",
+    "/wiki/Ravenna,_Seattle",
+    "/wiki/Beacon_Hill,_Seattle",
+    "/wiki/Last_Exit_on_Brooklyn",
+    "/wiki/Help:Contents",
+    "/wiki/High_Point,_Seattle",
+    "/wiki/Leschi,_Seattle",
+    "/wiki/Seattle",
+    "/wiki/University_of_Washington",
+    "/wiki/International_Standard_Book_Number",
+    "/wiki/University_District_Museum_Without_Walls",
+    "/wiki/Help:CS1_errors#bad_date",
+    "/wiki/South_Lake_Union,_Seattle",
+    "/wiki/Bryant,_Seattle",
+    "/wiki/Ballard,_Seattle",
+    "/wiki/Blue_Moon_Tavern",
+    "/wiki/Central_Waterfront,_Seattle",
+    "/wiki/Windermere,_Seattle",
+    "/wiki/Lushootseed",
+    "/wiki/North_Admiral,_Seattle",
+    "/wiki/Pioneer_Square,_Seattle",
+    "/wiki/Queen_Anne,_Seattle",
+    "/wiki/Seward_Park,_Seattle",
+    "/wiki/Northgate,_Seattle",
+    "/wiki/Wikipedia:Citing_sources#Inline_citations",
+    "/wiki/Hawthorne_Hills,_Seattle",
+    "/wiki/Wikipedia:Link_rot",
+    "/wiki/South_Lake_Union,_Seattle,_Washington",
+    "/wiki/Licton_Springs,_Seattle",
+    "/wiki/Maple_Leaf,_Seattle",
+    "/wiki/Industrial_District,_Seattle",
+    "/wiki/Portal:Contents",
+    "/wiki/Broadmoor,_Seattle",
+    "/wiki/Washington_(U.S._state)",
+    "/wiki/Scarecrow_Video",
+    "/wiki/Squire_Park,_Seattle",
+    "/wiki/Geographic_coordinate_system",
+    "/wiki/Cedar_Park,_Seattle",
+    "/wiki/South_Delridge,_Seattle",
+    "/wiki/Madrona,_Seattle",
+    "/wiki/Dunlap,_Seattle",
+    "/wiki/Brighton,_Seattle",
+    "/wiki/Wikipedia:Citation_needed",
+    "/wiki/Cascade,_Seattle",
+    "/wiki/University_Village,_Seattle,_Washington",
+    "/wiki/Cherry_Hill,_Seattle",
+    "/wiki/Homelessness",
+    "/wiki/Union_Bay_Natural_Area",
+    "/wiki/Northgate_Mall_(Seattle)",
+    "/wiki/Delridge,_Seattle",
+    "/wiki/Seattle_Public_Library",
+    "/wiki/Portal:Featured_content",
+    "/wiki/Portal:Current_events",
+    "/wiki/Link_Light_Rail",
+    "/wiki/University_District,_Seattle",
+    "/wiki/Georgetown,_Seattle",
+    "/wiki/Montlake,_Seattle",
+    "/wiki/Brewpub",
+    "/wiki/Wikipedia:About",
+    "/wiki/Green_Lake,_Seattle",
+    "/wiki/Grassland",
+    "/wiki/Fauntleroy,_Seattle",
+    "/wiki/Neighborhoods_in_Seattle",
+    "/wiki/YMCA",
+    "/wiki/Harbor_Island_(Seattle)",
+    "/wiki/View_Ridge,_Seattle",
+    "/wiki/West_Seattle,_Seattle",
+    "/wiki/North_Delridge,_Seattle",
+    "/wiki/Occupational_safety_and_health",
+    "/wiki/University_Village,_Seattle",
+    "/wiki/Help:Category",
+    "/wiki/Interbay,_Seattle",
+    "/wiki/Union_Bay_(Seattle)",
+    "/wiki/Rainier_Beach,_Seattle",
+    "/wiki/Wikipedia:File_Upload_Wizard",
+    "/wiki/Burke-Gilman_Trail",
+    "/wiki/The_Ave#Symptomatic_of_larger_scales",
+    "/wiki/Clear_cutting",
+    "/wiki/Arbor_Heights,_Seattle",
+    "/wiki/Roxhill,_Seattle",
+    "/wiki/Meadowbrook,_Seattle",
+    "/wiki/South_Park,_Seattle",
+    "/wiki/Seattle-Tacoma_International_Airport",
+    "/wiki/Laurelhurst,_Seattle",
+    "/wiki/Olympic_Hills,_Seattle",
+    "/wiki/Fraternities_and_sororities",
+    "/wiki/SoDo,_Seattle",
+    "/wiki/Ravenna,_Seattle,_Washington#Ravenna_and_Ravenna-Bryant",
+    "/wiki/Walt_Crowley",
+    "/wiki/Husky_Stadium_(University_of_Washington)",
+    "/wiki/Alaska-Yukon_Exposition",
+    "/wiki/Atlantic,_Seattle",
+    "/wiki/Magnolia,_Seattle",
+    "/wiki/Downtown,_Seattle,_Washington",
+    "/wiki/Hillman_City,_Seattle",
+    "/wiki/Coast_Salish_peoples",
+    "/wiki/Fairmount_Park,_Seattle",
+    "/wiki/Electric_trolley",
+    "/wiki/Alki,_Seattle,_Washington",
+    "/wiki/Portal:Seattle",
+    "/wiki/Madison_Park,_Seattle",
+    "/wiki/Lake_Washington",
+    "/wiki/Coast_Douglas-fir",
+    "/wiki/Wedgwood,_Seattle",
+    "/wiki/Downtown_Seattle",
+    "/wiki/Wikipedia:When_to_cite",
+    "/wiki/UW_Tower",
+    "/wiki/Lake_City,_Seattle",
+    "/wiki/Duwamish_tribe",
+    "/wiki/Eastlake,_Seattle",
+    "/wiki/Meridian,_Seattle",
+    "/wiki/The_Ave",
+    "/wiki/Template_talk:Seattle_neighborhoods",
+    "/wiki/Wikipedia:Citing_sources",
+    "/wiki/Wikipedia:General_disclaimer",
+    "/wiki/Rainier_Valley,_Seattle",
+    "/wiki/First_Hill,_Seattle",
+    "/wiki/Madison_Valley,_Seattle",
+    "/wiki/Thuja_plicata",
+    "/wiki/Theodore_Roethke",
+    "/wiki/Pike_Place_Market",
+    "/wiki/Queen_Anne,_Seattle,_Washington",
+    "/wiki/Madrona_Valley,_Seattle",
+    "/wiki/Yesler_Terrace,_Seattle",
+    "/wiki/Delridge,_Seattle#Pigeon_Point",
+    "/wiki/Seattle_Chinatown-International_District",
+    "/wiki/Mount_Baker,_Seattle",
+    "/wiki/Safeco_Corporation",
+    "/wiki/Wikipedia:WikiProject_Fact_and_Reference_Check",
+    "/wiki/Capitol_Hill_(Seattle)",
+    "/wiki/Fraternities_and_sororities_in_North_America",
+    "/wiki/Georgetown,_Seattle,_Washington",
+    "/wiki/Georgetown,_Seattle,_Washington[]",
+  ];
 
-  var readChain = function(params) {
-    var url = 'http://5tephen.com/chaingang/db.php?action=readchain';
-    params.count = 25;
-    var read = $http.get(url, {
-      params: params
-    })
-    read.success(function(data) {
-      $scope.chain = data.chain;
-    });
-  };
-
-  var readChainSince = function(link) {
-    readChain({
-      since: link.id,
-      cachebust: (new Date()).getTime()
-    });
-  };
-
-  var rand255 = function() {
-    return Math.round(Math.random() * 255);
-  }
-
-  $scope.rerollRandomRGB = function() {
-    $scope.randRGB = [
-      rand255(),
-      rand255(),
-      rand255()
-    ].join(",");
-  }
-  $scope.rerollRandomRGB();
-
-  $interval(function() {
-    readChainSince($scope.chain[0]);
-  }, REFRESH_RATE);
-
-  $scope.coolingDown = false;
-  var startCooldown = function() {
-    $scope.coolingDown = true;
-    $timeout(endCooldown, COOLDOWN_LENGTH);
-  };
-
-  var endCooldown = function() {
-    $scope.coolingDown = false;
-
-  };
-
-  $scope.submit = function(newPhrase) {
-    if ($scope.coolingDown) {
-      return;
-    }
-
-    startCooldown();
-
-    var url = 'http://5tephen.com/chaingang/db.php?action=addLink';
-    var params = {
-      newPhrase: newPhrase,
-      currentPhrase: $scope.chain[0].phrase,
-      color: $scope.randRGB
-    };
-
-    var request = $http.get(url, {
-      params: params
-    });
-
-    $scope.input = '';
-  };
+  $scope.links = _.map($scope.links, function(link) {
+    link = link.replace("/wiki/", "");
+    link = link.replace(/_/g, " ");
+    return link;
+  });
 }]);

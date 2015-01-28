@@ -1,6 +1,6 @@
 <html ng-app="app">
   <head>
-    <title>chaingang</title>
+    <title>wikiracer</title>
     <link rel="icon" href="http://5tephen.com/img/cheeseplane.gif" type="image/gif"/>
     <link rel="stylesheet" href="style.css" />
     <script src="js/jquery.js" type="text/javascript"></script>
@@ -8,22 +8,15 @@
     <script src="js/angular.js" type="text/javascript"></script>
     <script src="js/controller.js" type="text/javascript"></script>
   </head>
-  <body ng-controller="ChainGangController">
-    <div class="notecard center">
-      <h1>chaingang</h1>
-      <div>
-        <form ng-submit="submit(input)">
-          <span class="user-color hover" ng-click="rerollRandomRGB()"
-            style="background-color: rgb({{randRGB}})"></span>
-          <input ng-model="input" size="30">
-          <button type="submit" ng-disabled="coolingDown">submit</button>
-        </form>
+  <body ng-controller="WikiRacerController">
+    <div class="notecard">
+      <h1>{{currentArticle}}</h1>
+      <div ng-repeat="link in links">
+        <span ng-click="choose(link)">{{link}}</span>
       </div>
-      <div class="chainlink" ng-repeat="link in chain track by $index">
-        <span class="user-color"
-          style="float: left; background-color: rgb({{link.color || link.prev_phrase}})"></span>
-        {{link.phrase}}
-      </div>
+    </div>
+    <div class="notecard" ng-repeat="link in chosen">
+      <b>{{link}}</b>
     </div>
   </body>
 </html>
