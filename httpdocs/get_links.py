@@ -17,6 +17,16 @@ def get_links(filename):
         continue
       elif "Category:" in href:
         continue
+      elif "Help:" in href:
+        continue
+      elif "Wikipedia:" in href:
+        continue
+      elif "Portal:" in href:
+        continue
+      elif "Talk:" in href:
+        continue
+      elif "Template:" in href:
+        continue
       else:
         links.add(href)
   return links
