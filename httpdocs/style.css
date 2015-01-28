@@ -3,22 +3,11 @@ body {
 	font-family: monospace;
 }
 
-a {
-	color: #CC0000;
-}
-
-a:hover {
-	color: yellow;
-}
-
-a:visited {
-	color: #AA0000;
-}
-
 .notecard {
 	background-color: white;
 	border: solid black 1px;
   padding: 1em;
+  margin: 1em;
 }
 
 .center {
@@ -44,4 +33,16 @@ a:visited {
 
 .hover {
   cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+
+.loading, .links {
+  height: 85%;
+}
+
+.links {
+  overflow: scroll;
 }
